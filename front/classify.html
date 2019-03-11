@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="images/logo.png"/>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100" ng-app="myApp" ng-controller="classifyController">
+        <h1>Inteligencia Artificial Finch Soluções Classificador.</h1>
+        <div class="card col-md-10">
+            <br/>
+            <br/>
+            <form>
+                <div class="form-group">
+                    <div style="float: left">
+                        <label for="sel1">Type of text to analyse:</label>
+                        <select ng-model="tipo" ng-click="select()" class="form-control col-md-12" id="sel1">
+                            <option value="ata" selected>Ata</option>
+                            <option value="publicacao">Publicação</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-center my-4" style="float: right">
+                            <span class="font-weight-bold indigo-text mr-2 mt-1">Confidence: {{value}} &emsp;&emsp;&emsp;&emsp;&emsp; 0</span>
+                            <input ng-click="threshold()" ng-model="thre" class="border-0 slider-pic" type="range"
+                                   min="0" max="100"/>
+                            <span class="font-weight-bold indigo-text ml-2 mt-1">100</span>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                <div class="form-group green-border-focus">
+                    <label for="exampleFormControlTextarea5">{{text}}</label>
+                    <textarea class="form-control col-md-8 align-middle" id="exampleFormControlTextarea5" ng-model="form.text" rows="5"
+                              style="align: center"></textarea>
+                </div>
+
+                <p><b>Return: {{return}}</b></p>
+                <br/>
+                <br/>
+                <button type="button" class="btn btn-light" ng-click="ataModal()">Ata example</button>
+                <button type="button" class="btn btn-light" ng-click="publicacaoModal()">Publicação example</button>
+                <br/>
+                <br/>
+                <button ng-click="openWindow()" type="button" class="btn btn-info col-md-2" style="float: left">
+                    Configuration
+                </button>
+                <button ng-click="send()" type="button" class="btn btn-success col-md-3" style="float: right">Send
+                </button>
+                <br/>
+                <br/>
+            </form>
+            <div class="modal fade" id="modalClassify" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">EndPoints</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <form name="mainForm">
+                                <div class="input-group col-md-offset-2 col-md-8">
+                                    <span class="input-group-addon">Ata</span>
+                                    <input enable="false" class="form-control" ng-model="endpoint.ata" id="ata"
+                                           name="ata"
+                                           type="text">
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="input-group col-md-offset-2 col-md-8">
+                                    <span class="input-group-addon">Publicação</span>
+                                    <input enable="false" class="form-control" ng-model="endpoint.publicacao"
+                                           id="publicacao"
+                                           name="publicacao"
+                                           type="text">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-fechar" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal"
+                                    ng-click="save(endpoint)">
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="ataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ata Example</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           Send file link with extension between: ".jpg", ".png", ".tiff", ".tif", ".jpeg", ".gif", ".pdf", ".doc",
+                            ".docx", ".bmp", ".txt", ".xps".
+                            <br/>
+                            Link example:
+                            <p>http://download.gracco.finchsolucoes.com.br/?Parametro=5CzZAvgSP8rw6PiJSyA7AHIaibYJtCjBxUxTy9PhMZw49NLVl3eAC722jHIic1tf9OABgVJcZHxlYbzBH0fwjyO0jjhTv4Gl</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="publicacaoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModaPublLabel">Publicação Example</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DE DIREITO DA 3 VARA CIVEL DE BAURU - SP PROCESSO  NUMERO 123.213041.1232, JA DEVIDAMENTO QUALIFICADO NOS AUTOS DO PROCESSO, EM EPÍGRAFRE ...</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>
+<script src="js/angular/angular.min.js"></script>
+<script src="js/angular/angular-route.min.js"></script>
+
+<script src="app.js"></script>
+<script src="js/angular/controller/classifyController.js"></script>
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="vendor/animsition/js/animsition.min.js"></script>
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/select2/select2.min.js"></script>
+<script src="vendor/daterangepicker/moment.min.js"></script>
+<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<script src="vendor/countdowntime/countdowntime.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

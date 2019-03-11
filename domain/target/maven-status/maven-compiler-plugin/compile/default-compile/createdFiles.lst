@@ -1,0 +1,7 @@
+br/com/wallace/classificacao/domain/model/LogModel.class
+br/com/wallace/classificacao/domain/model/UserModel.class
+br/com/wallace/classificacao/domain/enums/RoleEnum.class
+br/com/wallace/classificacao/domain/model/LogModel$LogModelBuilder.class
+br/com/wallace/classificacao/domain/model/UserModel$UserModelBuilder.class
+br/com/wallace/classificacao/domain/repository/LogRepository.class
+br/com/wallace/classificacao/domain/repository/UserRepository.class

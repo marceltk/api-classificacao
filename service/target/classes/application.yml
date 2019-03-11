@@ -1,0 +1,17 @@
+server:
+  port: 9000
+spring:
+  password:
+    encoder:
+      secret: mysecret
+      iteration: 33
+      keylength: 256
+  jjwt:
+    secret: ThisIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave512bitsKeySize
+    expiration: 28800
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test

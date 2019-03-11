@@ -1,0 +1,5 @@
+/home/wallace/git/api-classificacao/domain/src/main/java/br/com/wallace/classificacao/domain/repository/UserRepository.java
+/home/wallace/git/api-classificacao/domain/src/main/java/br/com/wallace/classificacao/domain/repository/LogRepository.java
+/home/wallace/git/api-classificacao/domain/src/main/java/br/com/wallace/classificacao/domain/model/LogModel.java
+/home/wallace/git/api-classificacao/domain/src/main/java/br/com/wallace/classificacao/domain/enums/RoleEnum.java
+/home/wallace/git/api-classificacao/domain/src/main/java/br/com/wallace/classificacao/domain/model/UserModel.java
